@@ -22,7 +22,8 @@ import com.datastax.driver.core.querybuilder.Insert;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.datastax.driver.core.querybuilder.Select;
 import com.yahoo.ycsb.*;
-import com.yahoo.ycsb.workloads.CoreWorkload;
+import com.yahoo.ycsb.byteiterators.*;
+import com.yahoo.ycsb.workloads.*;
 
 import java.nio.ByteBuffer;
 

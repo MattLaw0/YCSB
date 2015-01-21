@@ -1,9 +1,8 @@
 package com.yahoo.ycsb.memcached;
 
-import com.yahoo.ycsb.ByteIterator;
 import com.yahoo.ycsb.DB;
 import com.yahoo.ycsb.DBException;
-import com.yahoo.ycsb.StringByteIterator;
+import com.yahoo.ycsb.byteiterators.*;
 import net.spy.memcached.MemcachedClient;
 import net.spy.memcached.internal.GetFuture;
 import net.spy.memcached.internal.OperationFuture;

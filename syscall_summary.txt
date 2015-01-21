@@ -1,0 +1,26 @@
+OPEN 476542 14 4 4 1 4 3 3 3 3 5 18 7 1 4 3 date int int str int int int int str str str int int int
+S_RECVFROM 796713 11 4 4 1 4 3 3 3 1 7 4 319 date int int str int int int int int int raw
+S_SOCKET 852517 11 4 4 1 4 3 3 5 3 1 1 2 date int int str int int str int int int int
+WRITE 882190 11 4 4 1 6 3 3 3 3 3 1 7 date int int str int int int int int int raw
+DUP2 904563 10 4 4 1 4 3 3 3 3 3 3 date int int str int int int int int int
+S_RECVMSG 923144 10 4 4 1 4 3 3 3 1 0 1 date int int str int int int int int raw
+CLOSE 938915 9 4 4 1 4 3 3 3 3 3 date int int str int int int int int
+READ 953666 11 4 4 1 7 3 3 3 3 3 1 10 date int int str int int int int int int raw
+PIPE 966201 10 4 4 1 4 3 3 3 3 3 1 date int int str int int int int int int
+S_SENDTO 978551 11 4 4 1 4 3 3 3 1 6 4 67 date int int str int int int int int int raw
+S_CONNECT 987115 9 4 4 1 4 3 3 3 4 2 date int int str int int int int int
+S_SENDMSG 993244 10 4 4 1 4 3 3 3 1 1 2 date int int str int int int int int raw
+CREAT 995019 14 4 4 1 4 3 3 3 3 5 19 4 1 4 3 date int int str int int int int str str str int int int
+DUP 996707 10 4 4 1 4 3 3 3 3 3 3 date int int str int int int int int int
+FCHOWN 997473 10 4 4 1 4 3 3 7 1 1 2 date int int str int int str str str int
+UNLINK 998219 11 4 4 1 4 3 3 3 3 7 19 2 date int int str int int int int str str str
+FCHMOD 998765 9 4 4 1 4 3 3 7 1 4 date int int str int int str str int
+PIPE2 999127 10 4 4 1 4 3 3 3 3 3 1 date int int str int int int int int int
+CHMOD 999445 9 4 4 1 4 3 3 7 8 4 date int int str int int str str int
+LINK 999601 9 4 4 1 4 3 3 16 16 6 date int int str int int str str str
+MKDIR 999693 9 4 4 1 4 3 3 6 6 4 date int int str int int str str int
+S_ACCEPT 999779 9 4 4 1 4 3 3 3 4 2 date int int str int int int int int
+CHOWN 999857 10 4 4 1 4 3 3 5 10 2 2 date int int str int int str str str int
+FCHMODAT 999935 11 4 4 1 4 3 3 5 18 3 4 1 date int int str int int str str int int int
+SYMLINK 999981 9 4 4 1 4 3 3 8 5 6 date int int str int int str str str
+FCHOWNAT 1000000 12 4 4 1 4 3 3 5 21 3 3 2 1 date int int str int int str str int str int int

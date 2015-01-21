@@ -19,6 +19,8 @@ package com.yahoo.ycsb;
 
 import java.util.*;
 
+import com.yahoo.ycsb.byteiterators.ByteIterator;
+
 
 /**
  * Basic DB that just prints out the requested operations, instead of doing them against a database.

@@ -2,6 +2,8 @@ package com.yahoo.ycsb;
 
 import java.util.HashMap;
 
+import com.yahoo.ycsb.byteiterators.ByteIterator;
+
 public class ThreadState {
     private String key;
     private HashMap<String, ByteIterator> values;

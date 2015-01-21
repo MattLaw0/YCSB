@@ -17,8 +17,8 @@
 package com.yahoo.ycsb.db;
 
 import com.yahoo.ycsb.DBException;
-import com.yahoo.ycsb.ByteIterator;
-import com.yahoo.ycsb.ByteArrayByteIterator;
+import com.yahoo.ycsb.byteiterators.ByteIterator;
+import com.yahoo.ycsb.byteiterators.ByteArrayByteIterator;
 import com.yahoo.ycsb.measurements.Measurements;
 
 import java.io.IOException;

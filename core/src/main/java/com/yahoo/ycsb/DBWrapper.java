@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.yahoo.ycsb.byteiterators.ByteIterator;
 import com.yahoo.ycsb.measurements.Measurements;
 
 /**

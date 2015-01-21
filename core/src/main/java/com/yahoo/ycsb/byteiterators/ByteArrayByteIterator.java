@@ -14,7 +14,7 @@
  * permissions and limitations under the License. See accompanying                                                                                                                 
  * LICENSE file.                                                                                                                                                                   
  */
-package com.yahoo.ycsb;
+package com.yahoo.ycsb.byteiterators;
 
 public class ByteArrayByteIterator extends ByteIterator {
 	byte[] str;

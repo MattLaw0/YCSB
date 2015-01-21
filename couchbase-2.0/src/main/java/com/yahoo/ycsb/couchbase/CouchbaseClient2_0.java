@@ -6,7 +6,7 @@ import com.couchbase.client.protocol.views.Query;
 import com.couchbase.client.protocol.views.ViewResponse;
 import com.couchbase.client.CouchbaseConnectionFactory;
 import com.couchbase.client.CouchbaseConnectionFactoryBuilder;
-import com.yahoo.ycsb.ByteIterator;
+import com.yahoo.ycsb.byteiterators.ByteIterator;
 import com.yahoo.ycsb.DBException;
 import com.yahoo.ycsb.memcached.MemcachedCompatibleClient;
 import net.spy.memcached.FailureMode;

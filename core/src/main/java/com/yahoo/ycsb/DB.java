@@ -22,6 +22,8 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.List;
 
+import com.yahoo.ycsb.byteiterators.ByteIterator;
+
 /**
  * A layer for accessing a database to be benchmarked. Each thread in the client
  * will be given its own instance of whatever DB class is to be used in the test.

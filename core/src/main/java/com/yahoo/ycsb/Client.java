@@ -66,7 +66,6 @@ class StatusThread extends Thread {
 
         boolean alldone;
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
-
         do {
             alldone = true;
 

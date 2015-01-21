@@ -18,6 +18,7 @@
 package com.yahoo.ycsb.db;
 
 import com.yahoo.ycsb.*;
+import com.yahoo.ycsb.byteiterators.*;
 
 import java.util.*;
 import java.nio.ByteBuffer;

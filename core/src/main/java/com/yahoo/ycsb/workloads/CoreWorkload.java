@@ -22,6 +22,8 @@ import java.util.Map;
 import java.util.Properties;
 
 import com.yahoo.ycsb.*;
+import com.yahoo.ycsb.byteiterators.ByteIterator;
+import com.yahoo.ycsb.byteiterators.RandomByteIterator;
 import com.yahoo.ycsb.generator.*;
 import com.yahoo.ycsb.measurements.Measurements;
 

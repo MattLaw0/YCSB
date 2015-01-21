@@ -22,8 +22,8 @@ import com.mongodb.Mongo;
 import com.mongodb.WriteConcern;
 import com.mongodb.WriteResult;
 
-import com.yahoo.ycsb.ByteArrayByteIterator;
-import com.yahoo.ycsb.ByteIterator;
+import com.yahoo.ycsb.byteiterators.ByteArrayByteIterator;
+import com.yahoo.ycsb.byteiterators.ByteIterator;
 
 import com.mongodb.*;
 

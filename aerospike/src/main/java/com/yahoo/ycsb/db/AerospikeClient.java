@@ -14,7 +14,7 @@ import com.aerospike.client.Key;
 import com.aerospike.client.ResultCode;
 import com.aerospike.client.policy.Policy;
 import com.aerospike.client.policy.WritePolicy;
-import com.yahoo.ycsb.ByteIterator;
+import com.yahoo.ycsb.byteiterators.ByteIterator;
 import com.yahoo.ycsb.DBException;
 
 public class AerospikeClient extends com.yahoo.ycsb.DB{

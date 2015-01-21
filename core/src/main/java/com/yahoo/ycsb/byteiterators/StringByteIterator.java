@@ -15,7 +15,7 @@
  * LICENSE file.                                                                                                                                                                   
  */
 
-package com.yahoo.ycsb;
+package com.yahoo.ycsb.byteiterators;
 
 import java.util.Map;
 import java.util.HashMap;
