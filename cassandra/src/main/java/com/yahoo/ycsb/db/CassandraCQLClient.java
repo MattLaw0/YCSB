@@ -79,7 +79,7 @@ public class CassandraCQLClient extends DB
     public static final String WRITE_CONSISTENCY_LEVEL_PROPERTY = "cassandra.writeconsistencylevel";
     public static final String WRITE_CONSISTENCY_LEVEL_PROPERTY_DEFAULT = "ONE";
 
-    private static boolean _debug = false;
+    private static boolean _debug = true;
     private static boolean readallfields;
 
     private static PreparedStatement deleteStatement = null;
