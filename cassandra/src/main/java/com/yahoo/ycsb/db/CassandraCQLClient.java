@@ -79,8 +79,9 @@ public class CassandraCQLClient extends DB
     public static final String WRITE_CONSISTENCY_LEVEL_PROPERTY = "cassandra.writeconsistencylevel";
     public static final String WRITE_CONSISTENCY_LEVEL_PROPERTY_DEFAULT = "ONE";
 
-    private static boolean _debug = true;
+    private static boolean _debug = false;
     private static boolean readallfields;
+    private static int fieldCount;
 
     private static PreparedStatement deleteStatement = null;
 
@@ -160,7 +161,7 @@ public class CassandraCQLClient extends DB
     private void buildStatements()
     {
         Properties p = getProperties();
-        int fieldCount = Integer.parseInt(p.getProperty(CoreWorkload.FIELD_COUNT_PROPERTY, CoreWorkload.FIELD_COUNT_PROPERTY_DEFAULT));
+        fieldCount = Integer.parseInt(p.getProperty(CoreWorkload.FIELD_COUNT_PROPERTY, CoreWorkload.FIELD_COUNT_PROPERTY_DEFAULT));
         String fieldPrefix = p.getProperty(CoreWorkload.FIELD_NAME_PREFIX, CoreWorkload.FIELD_NAME_PREFIX_DEFAULT);
         String table = p.getProperty(CoreWorkload.TABLENAME_PROPERTY, CoreWorkload.TABLENAME_PROPERTY_DEFAULT);
 
@@ -427,7 +428,7 @@ public class CassandraCQLClient extends DB
     {
         try
         {
-            Object[] vals = new Object[values.size() + 1];
+            Object[] vals = new Object[fieldCount + 1];
             vals[0] = key;
             int i = 1;
             for (Map.Entry<String, ByteIterator> entry : values.entrySet())
