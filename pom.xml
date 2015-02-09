@@ -69,7 +69,7 @@
     <!--module>hbase</module-->
     <!--module>accumulo</module-->
     <!--module>dynamodb</module-->
-    <!--module>jdbc</module-->
+    <module>jdbc</module>
     <!--module>memcached</module-->
     <!--module>mongodb</module-->
     <module>distribution</module>
