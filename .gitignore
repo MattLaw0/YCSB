@@ -13,3 +13,5 @@ output*
 # and intellij
 .idea/
 *.iml
+
+workloads/
