@@ -465,7 +465,7 @@ public class JdbcDBClient extends DB implements JdbcDBClientConstants {
                     byte[] bytes = entry.getValue().toArray();
                     insertStatement.setBytes(index++, bytes);
                 }
-                while (index < numFields + 1){
+                while (index < numFields + 2){
                     insertStatement.setBytes(index++, null);
                 }
                 //System.out.println(insertStatement.toString());
