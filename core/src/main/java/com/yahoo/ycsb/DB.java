@@ -166,6 +166,11 @@ public abstract class DB
 	 */
 	public abstract int insert(String table, String key, Map<String, ByteIterator> values);
 
+    /**
+     * Same as the above insert method, except key is a long. Added during Progger workload modifications for SQL Cluster/JDBC driver adaption.
+     */
+    public abstract int insert(String table, long key, Map<String, ByteIterator> values);
+
 	/**
 	 * Delete a record from the database. 
 	 *

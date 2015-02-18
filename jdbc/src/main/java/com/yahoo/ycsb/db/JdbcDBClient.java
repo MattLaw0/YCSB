@@ -145,6 +145,10 @@ public class JdbcDBClient extends DB implements JdbcDBClientConstants {
         return ret;
     }
 
+    private int getShardIndexByKey(long key) {
+        return Math.abs(((Long)key).hashCode()) % conns.size();
+    }
+
     /**
      * For the given key, returns Connection object that holds connection
      * to the shard that contains this key
@@ -153,6 +157,10 @@ public class JdbcDBClient extends DB implements JdbcDBClientConstants {
      * @return Connection object
      */
     private Connection getShardConnectionByKey(String key) {
+        return conns.get(getShardIndexByKey(key));
+    }
+
+    private Connection getShardConnectionByKey(long key) {
         return conns.get(getShardIndexByKey(key));
     }
 
@@ -253,8 +261,37 @@ public class JdbcDBClient extends DB implements JdbcDBClientConstants {
             if (stmt == null) return insertStatement;
             else return stmt;
         }
+    
+    private PreparedStatement createAndCacheInsertStatement(StatementType insertType, long key)
+        throws SQLException {
+            StringBuilder insert = new StringBuilder("INSERT INTO ");
+            insert.append(insertType.tableName);
+            insert.append(" VALUES(?");
+            for (int i = 0; i < insertType.numFields; i++) {
+                insert.append(",?");
+            }
+            insert.append(");");
+            PreparedStatement insertStatement = getShardConnectionByKey(key).prepareStatement(insert.toString());
+            PreparedStatement stmt = cachedStatements.putIfAbsent(insertType, insertStatement);
+            if (stmt == null) return insertStatement;
+            else return stmt;
+        }
 
     private PreparedStatement createAndCacheReadStatement(StatementType readType, String key)
+        throws SQLException {
+            StringBuilder read = new StringBuilder("SELECT * FROM ");
+            read.append(readType.tableName);
+            read.append(" WHERE ");
+            read.append(PRIMARY_KEY);
+            read.append(" = ");
+            read.append("?;");
+            PreparedStatement readStatement = getShardConnectionByKey(key).prepareStatement(read.toString());
+            PreparedStatement stmt = cachedStatements.putIfAbsent(readType, readStatement);
+            if (stmt == null) return readStatement;
+            else return stmt;
+        }
+    
+    private PreparedStatement createAndCacheReadStatement(StatementType readType, long key)
         throws SQLException {
             StringBuilder read = new StringBuilder("SELECT * FROM ");
             read.append(readType.tableName);
@@ -479,26 +516,55 @@ public class JdbcDBClient extends DB implements JdbcDBClientConstants {
         }
 
     @Override
-        public int delete(String tableName, String key) {
-            if (tableName == null) {
-                return -1;
-            }
-            if (key == null) {
-                return -1;
-            }
+        public int insert(String tableName, long key, Map<String, ByteIterator> values) {
             try {
-                StatementType type = new StatementType(StatementType.Type.DELETE, tableName, 1, getShardIndexByKey(key));
-                PreparedStatement deleteStatement = cachedStatements.get(type);
-                if (deleteStatement == null) {
-                    deleteStatement = createAndCacheDeleteStatement(type, key);
+                StatementType type = new StatementType(StatementType.Type.INSERT, tableName, numFields, getShardIndexByKey(key));
+                PreparedStatement insertStatement = cachedStatements.get(type);
+                if (insertStatement == null) {
+                    insertStatement = createAndCacheInsertStatement(type, key);
                 }
-                deleteStatement.setString(1, key);
-                int result = deleteStatement.executeUpdate();
-                if (result == 1) return SUCCESS;
-                else return 1;
+
+                insertStatement.setLong(1, key);
+
+                int index = 2;
+                for (Map.Entry<String, ByteIterator> entry : values.entrySet()) {
+                    byte[] bytes = entry.getValue().toArray();
+                    insertStatement.setBytes(index++, bytes);
+                }
+                while (index < numFields + 1) {
+                    insertStatement.setString(index++, null);
+                }
+                int result = insertStatement.executeUpdate();
+                if (result == 1)
+                    return SUCCESS;
+                else
+                    return 1;
             } catch (SQLException e) {
-                System.err.println("Error in processing delete to table: " + tableName + e);
+                System.err.println("Error in processing insert to table: " + tableName + e);
                 return -1;
             }
         }
+
+    public int delete(String tableName, String key) {
+        if (tableName == null) {
+            return -1;
+        }
+        if (key == null) {
+            return -1;
+        }
+        try {
+            StatementType type = new StatementType(StatementType.Type.DELETE, tableName, 1, getShardIndexByKey(key));
+            PreparedStatement deleteStatement = cachedStatements.get(type);
+            if (deleteStatement == null) {
+                deleteStatement = createAndCacheDeleteStatement(type, key);
+            }
+            deleteStatement.setString(1, key);
+            int result = deleteStatement.executeUpdate();
+            if (result == 1) return SUCCESS;
+            else return 1;
+        } catch (SQLException e) {
+            System.err.println("Error in processing delete to table: " + tableName + e);
+            return -1;
+        }
+    }
 }

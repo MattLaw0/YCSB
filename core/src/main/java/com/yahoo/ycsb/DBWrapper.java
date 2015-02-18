@@ -279,6 +279,35 @@ public class DBWrapper extends DB {
         });
     }
 
+    /**
+     * Insert a record in the database. Any field/value pairs in the specified values Map will be written into the record with the specified
+     * record key.
+     *
+     *
+     * @param table  The name of the table
+     * @param key    The record key of the record to insert.
+     * @param values A Map of field/value pairs to insert in the record
+     * @return Zero on success, a non-zero error code on error
+     */
+    public int insert(final String table, final long key, final Map<String, ByteIterator> values) {
+        return operation(new DBOperation() {
+            @Override
+            public String name() {
+                return "INSERT";
+            }
+
+            @Override
+            public int maxRetries() {
+                return insertRetryCount;
+            }
+
+            @Override
+            public int go() {
+                return _db.insert(table, key, values);
+            }
+        });
+    }
+
     private int operation(DBOperation op) {
         long st = System.nanoTime();
         int res = op.go();

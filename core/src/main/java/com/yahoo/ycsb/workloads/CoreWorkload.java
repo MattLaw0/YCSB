@@ -52,6 +52,7 @@ import java.util.HashMap;
  * <LI><b>scanlengthdistribution</b>: for scans, what distribution should be used to choose the number of records to scan, for each scan, between 1 and maxscanlength (default: uniform)
  * <LI><b>insertorder</b>: should records be inserted in order by key ("ordered"), or in hashed order ("hashed") (default: hashed)
  * <LI><b>ignoreinserterrors</b>: if set to true the insert operations are continues ever when one of the operations failed (default: false)
+ * <LI><b>keytypelong</b>: set to true if record keys are to be just the long value (rather than "userX" string) - added with Progger modifications to YCSB (default: false)
  * </ul>
  */
 public class CoreWorkload extends Workload {
@@ -271,6 +272,15 @@ public class CoreWorkload extends Workload {
      */
     public static final String IGNORE_INSERT_ERRORS_DEFAULT = "false";
 
+    /**
+     * Set key names to be of type long
+     */
+    public static final String KEY_TYPE_LONG = "keytypelong";
+
+    /**
+     * Default value of the key type long property
+     */
+    public static final String KEY_TYPE_LONG_DEFAULT = "false";
 
     /**
      * Used to track insert keys.
@@ -294,6 +304,8 @@ public class CoreWorkload extends Workload {
     String fieldnameprefix;
 
     boolean ignoreinserterrors;
+    
+    boolean keytypelong;
     
     protected static IntegerGenerator getFieldLengthGenerator(Properties p) throws WorkloadException {
         IntegerGenerator fieldlengthgenerator;
@@ -331,7 +343,8 @@ public class CoreWorkload extends Workload {
         fieldnameprefix = p.getProperty(FIELD_NAME_PREFIX, FIELD_NAME_PREFIX_DEFAULT);
 
         ignoreinserterrors = Boolean.parseBoolean(p.getProperty(IGNORE_INSERT_ERRORS, IGNORE_INSERT_ERRORS_DEFAULT));
-        
+        keytypelong = Boolean.parseBoolean(p.getProperty(KEY_TYPE_LONG, KEY_TYPE_LONG_DEFAULT));
+
         double readproportion = Double.parseDouble(p.getProperty(READ_PROPORTION_PROPERTY, READ_PROPORTION_PROPERTY_DEFAULT));
         double updateproportion = Double.parseDouble(p.getProperty(UPDATE_PROPORTION_PROPERTY, UPDATE_PROPORTION_PROPERTY_DEFAULT));
         double insertproportion = Double.parseDouble(p.getProperty(INSERT_PROPORTION_PROPERTY, INSERT_PROPORTION_PROPERTY_DEFAULT));
@@ -454,9 +467,13 @@ public class CoreWorkload extends Workload {
         int result = -1;
         long keynum = keynumGenerator.startInsert();
         try {
-            String dbkey = buildKeyName(keynum);
             HashMap<String, ByteIterator> values = buildValues();
-            result = db.insert(table, dbkey, values);
+            if (keytypelong) {
+                result = db.insert(table, keynum, values);
+            } else {
+                String dbkey = buildKeyName(keynum);
+                result = db.insert(table, dbkey, values);
+            }
         } finally {
             keynumGenerator.completeInsert(keynum);
         }
@@ -608,10 +625,13 @@ public class CoreWorkload extends Workload {
         //choose the next key
         long keynum = keynumGenerator.startInsert();
         try {
-            String dbkey = buildKeyName(keynum);
-
             HashMap<String, ByteIterator> values = buildValues();
-            db.insert(table, dbkey, values);
+            if (keytypelong) {
+                db.insert(table, keynum, values);
+            } else {
+                String dbkey = buildKeyName(keynum);
+                db.insert(table, dbkey, values);
+            }
         } finally {
             keynumGenerator.completeInsert(keynum);
         }

@@ -480,4 +480,15 @@ public class CassandraCQLClient extends DB
 
         return ERR;
     }
+
+    /**
+     * NOT YET IMPLEMENTED (abstract method added for benefit of MySQL Progger alterations)
+     * Could convert long to string and call next insert method instead if one wants this method to return a non-error
+     */  
+    @Override
+    public int insert(String table, long key, Map<String, ByteIterator> values)
+    {
+        System.err.println("Insert with long key value not yet implemented in CassandraCQL");
+        return ERR;
+    }
 }

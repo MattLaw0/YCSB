@@ -280,7 +280,10 @@ public class BasicDB extends DB
 		return 0;
 	}
 
-
+    public int insert(String table, long key, Map<String, ByteIterator> values)
+    {
+        return insert(table, Long.toString(key), values);
+    }
 	/**
 	 * Delete a record from the database. 
 	 *
