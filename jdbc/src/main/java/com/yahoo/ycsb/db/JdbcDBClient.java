@@ -531,7 +531,7 @@ public class JdbcDBClient extends DB implements JdbcDBClientConstants {
                     byte[] bytes = entry.getValue().toArray();
                     insertStatement.setBytes(index++, bytes);
                 }
-                while (index < numFields + 1) {
+                while (index < numFields + 2) {
                     insertStatement.setString(index++, null);
                 }
                 int result = insertStatement.executeUpdate();
@@ -540,7 +540,7 @@ public class JdbcDBClient extends DB implements JdbcDBClientConstants {
                 else
                     return 1;
             } catch (SQLException e) {
-                System.err.println("Error in processing insert to table: " + tableName + e);
+                System.err.println("Error in processing insert to table: " + tableName + " " + e);
                 return -1;
             }
         }
