@@ -12,6 +12,9 @@ Changes
 2. New Properties  
   _keytypelong_ (default=false) - if true, primary keys will be integer (long) values, instead of strings (e.g. just 22 instead of "user22")  
   _proggersummary_ (default=syscall_summary.txt) - file name of the progger analysis file used for the Progger workload. NOTE: This should be located outside in the home directory, at the same layer as the root YCSB folder.  
+  
+3. Driver modifications  
+  The CassandraCQLClient and JdbcDBClient were modified slightly in order to cope with the changes made to the Progger Workload. Essentially the insert statements needed to be predefined with a fixed number of fields (mainly due to having to define a schema beforehand) - the Progger workload generates a varied number. Therefore, as a simple workaround, the predefined statements were created with the maximum number of fields of any record (14), and if there were less than that many fields for a particular record, nulls were inserted into the remainder of the field. This is not ideal, and more sophisticated record generation should be considered in future that allows for varying numbers of fields and types.
 
 Previous repos
 -----
