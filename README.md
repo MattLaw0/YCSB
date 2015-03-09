@@ -1,54 +1,23 @@
 Yahoo! Cloud System Benchmark (YCSB)
 ====================================
 
-A note on comparing multiple systems
-------------------------------------
+Fork of YCSB used for Progger database benchmarking. Created during the University of Waikato's Summer Research Scholarship programme 2014-15.
 
-NoSQL systems have widely varying defaults for trading off write durability vs performance.  Make sure that you are [comparing apples to apples across all candidates](http://www.datastax.com/dev/blog/how-not-to-benchmark-cassandra-a-case-study).  The most useful common denominator is synchronously durable writes.  The following YCSB clients have been verified to perform synchronously durable writes by default:
-
-- Couchbase
-- HBase
-- MongoDB
-
-Cassandra requires a configuration change in conf/cassandra.yaml.  Uncomment these lines:
-
-    # commitlog_sync: batch
-    # commitlog_sync_batch_window_in_ms: 50
-
-Links
+Changes
 -----
-http://wiki.github.com/jbellis/YCSB/  
-http://research.yahoo.com/Web_Information_Management/YCSB/  
-ycsb-users@yahoogroups.com  
 
-Getting Started
----------------
+1. New Workload (ProggerWorkload) - generates records and fields according to a distribution provided by an analysis file. Set workload=com.yahoo.ycsb.workloads.ProggerWorkload as a property.
+  New ByteIterators (DateByteIterator, IntByteIterator and ProggerIterator were developed as part of this. All byte iterators are also moved to a new directory.
+  
+2. New Properties  
+  _keytypelong_ (default=false) - if true, primary keys will be integer (long) values, instead of strings (e.g. just 22 instead of "user22")  
+  _proggersummary_ (default=syscall_summary.txt) - file name of the progger analysis file used for the Progger workload. NOTE: This should be located outside in the home directory, at the same layer as the root YCSB folder.  
 
-1. Download the latest release of YCSB:
+Previous repos
+-----
+https://github.com/brianfrankcooper/YCSB - Original YCSB repo  
+  
+https://github.com/jbellis/YCSB - Much more recent adaption with numerous changes  
+(This is based off another repository created by Thumbtack Technology during their NoSQL Benchmarking white paper (http://www.aerospike.com/wp-content/uploads/2013/01/Ultra-High-Performance-NoSQL-Benchmarking.pdf). Pages 41-43 highlight all the changes they made to the original YCSB framework.
 
-    ```sh
-    wget https://github.com/downloads/jbellis/YCSB/ycsb-0.1.4.tar.gz
-    tar xfvz ycsb-0.1.4
-    cd ycsb-0.1.4
-    ```
-    
-2. Set up a database to benchmark. There is a README file under each binding 
-   directory.
-
-3. Run YCSB command. 
-    
-    ```sh
-    bin/ycsb load basic -P workloads/workloada
-    bin/ycsb run basic -P workloads/workloada
-    ```
-
-  Running the `ycsb` command without any argument will print the usage. 
-   
-  See https://github.com/brianfrankcooper/YCSB/wiki/Running-a-Workload
-  for a detailed documentation on how to run a workload.
-
-  See https://github.com/brianfrankcooper/YCSB/wiki/Core-Properties for 
-  the list of available workload properties.
-
-  Alternatively, see fabric/README for Thumbtack's work on parallelizing
-  YCSB clients using Fabric.
+See https://github.com/brianfrankcooper/YCSB/wiki/ for documentation on how to run YCSB, along with the original properties.
