@@ -6,8 +6,9 @@ Fork of YCSB used for Progger database benchmarking. Created during the Universi
 Changes
 -----
 
-1. New Workload (ProggerWorkload) - generates records and fields according to a distribution provided by an analysis file. Set workload=com.yahoo.ycsb.workloads.ProggerWorkload as a property.
-  New ByteIterators (DateByteIterator, IntByteIterator and ProggerIterator were developed as part of this. All byte iterators are also moved to a new directory.
+1. New Workload (ProggerWorkload)  
+  Generates records and fields according to a distribution provided by an analysis file. Set workload=com.yahoo.ycsb.workloads.ProggerWorkload as a property.  
+  New ByteIterators (DateByteIterator, IntByteIterator and ProggerIterator) were developed as part of this. All byte iterators are also moved to a new directory.
   
 2. New Properties  
   _keytypelong_ (default=false) - if true, primary keys will be integer (long) values, instead of strings (e.g. just 22 instead of "user22")  
