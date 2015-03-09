@@ -21,7 +21,6 @@ Previous repos
 -----
 https://github.com/brianfrankcooper/YCSB - Original YCSB repo  
   
-https://github.com/jbellis/YCSB - Much more recent adaption with numerous changes  
-(This is based off another repository created by Thumbtack Technology during their NoSQL Benchmarking white paper (http://www.aerospike.com/wp-content/uploads/2013/01/Ultra-High-Performance-NoSQL-Benchmarking.pdf). Pages 41-43 highlight all the changes they made to the original YCSB framework.
+https://github.com/jbellis/YCSB - Much more recent repo, found in article http://www.datastax.com/dev/blog/how-not-to-benchmark-cassandra-a-case-study. This is mainly based off another repository created by Thumbtack Technology during their NoSQL Benchmarking white paper (http://www.aerospike.com/wp-content/uploads/2013/01/Ultra-High-Performance-NoSQL-Benchmarking.pdf). Pages 41-43 highlight all the changes they made to the original YCSB framework.
 
 See https://github.com/brianfrankcooper/YCSB/wiki/ for documentation on how to run YCSB, along with the original properties.
